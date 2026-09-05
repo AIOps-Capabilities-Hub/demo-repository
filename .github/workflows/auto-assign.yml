@@ -3,7 +3,7 @@ on:
   issues:
     types: [opened]
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -12,8 +12,8 @@ jobs:
       pull-requests: write
     steps:
     - name: 'Auto-assign issue'
+      if: github.event_name == 'issues'
       uses: pozil/auto-assign-issue@v1
       with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           assignees: aaqib-hafeez-khan-in
-          numOfAssignee: 1
